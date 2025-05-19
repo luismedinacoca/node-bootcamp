@@ -352,6 +352,13 @@ export default router;
 3. Open browser URL: `http://localhost:3000/auth/login`
 
 4. Instead of `res.json()` for `router.get('/login')` use `router.render('/login')`
+```js
+// userRoutes.js
+router.get('/login', (req, res) => {
+    res.render('auth/login');
+})
+```
+
 
 5. In `login.pug` add:
 ```js
@@ -360,3 +367,31 @@ div.container-text
   p(id="center") login here!
 ```
 > Then repeat step 3.
+
+# Lecture 019: Send data to views
+
+## Send an object to `auth/login`:
+```js
+// userRoutes.js
+router.get('/login', (req, res) => {
+    res.render('auth/login', {
+      authenticated: true
+    });
+})
+```
+
+## Send a variable value then print it:
+```pug
+div
+  h2=authenticated
+  p login here!
+```
+
+## Working with a logic:
+```pug
+div
+  if uathenticated
+    p Autheticated user
+  else
+    p Not authenticated
+```
