@@ -158,3 +158,77 @@ import express from 'express';
 // const express = require('express');
 ```
 
+# Lecture 015: What is Routing?
+
+## Methods:
+1. GET: utilizado para MOSTRAR información.
+2. POST: Utilizado para ENVIAR información.
+3. PUT/PATCH: Utilizado para ACTUALIZAR informacion.
+4. DELETE: Utilizado para ELIMINSR información.
+
+
+## Create new file `userRoutes.js` inside `routes` folder
+1. Inside `userRoutes.js` file, add:
+```js
+import express from "express";
+const router = express.Router();
+
+router.get('/', function(req, res) => {
+    res.json({msg: "Hello world from Express"});
+})
+
+router.get('/about-us', (req, res) => {
+    res.send('info about us!');
+})
+
+export default router;
+```
+
+2. In `index.js` delete or comment them:
+```js
+app.get('/', (req, res) => {
+    res.send("Hello world from Server!");
+});
+
+app.get('/about-us', (req, res) => {
+    res.send("About us!");
+})
+```
+due to moved to `userRoutes.js` file
+
+
+3. Import `userRoutes` in `index.js` file:
+```js
+import express from 'express';
+import userRoutes from './routes/userRoutes.js';
+
+//create app:
+const app = express()
+
+// routing
+app.get('/', userRoutes);
+
+//define a port then run project:
+const port = 3000; 
+
+app.listen(port, () => {
+    console.log(`Server is running in port ${port}`);
+});
+```
+
+Issue:
+When look for `http://localhost:3000/about-us` in browser, I cannot find it.
+
+<img src="./img/section06lecture015-001-noAccessAbout-us.png">
+
+Solution:
+
+Replace `get` by `use`in order to get all routing which start with `'/'`. 
+
+In `get` it looks for a specific routing which is `'/'` only.
+```js
+// routing
+app.use('/', userRoutes);
+```
+
+
