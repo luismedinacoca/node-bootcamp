@@ -278,3 +278,78 @@ router.get('/about-us', (req, res) => {
 
 export default router;
 ```
+
+# Lecture 018: Enable Pug
+Install Pug
+```bash
+npm i pug
+```
+
+## Enable Pug:
+```js
+//Enable Pug:
+app.set('view engine', 'pug');
+app.set('views', './views');
+```
+
+## Create `views` folder:
+```
+bienesraices/
+├── node_modules/
+│   ├── .bin/
+│   ├── ... (dependencies)
+│   └── ...
+├── routes/
+│   ├── userRoutes.js
+│   └── ... 
+├── views/
+│   ├── auth
+│   │   └── login.pug 
+│   └── ...
+├── index.js
+├── package-lock.json
+├── package.json     
+└── README.md   
+```
+
+## Template engine:
+
+1. Update `index.js` file:
+```js
+import express from 'express';
+import userRoutes from './routes/userRoutes.js';
+
+//create app:
+const app = express()
+
+// routing
+app.get('/auth', userRoutes);
+
+//define a port then run project:
+const port = 3000; 
+
+app.listen(port, () => {
+  console.log(`Server is running in port ${port}`);
+});
+```
+
+2. Update `ruserRoutes.js` files:
+```js
+import express from "express";
+const router = express.Router();
+
+router.get('/login', function(req, res) {
+    res.json({msg: "Hello world from Express"});
+})
+
+router.get('/about-us', (req, res) => {
+    res.send('info about us!');
+})
+
+export default router;
+```
+
+3. Open browser URL: `http://localhost:3000/auth/login`
+
+4. Instead of `res.json()` for `router.get('/login')` use `router.render('/login')`
+
