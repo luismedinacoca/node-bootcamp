@@ -353,3 +353,10 @@ export default router;
 
 4. Instead of `res.json()` for `router.get('/login')` use `router.render('/login')`
 
+5. In `login.pug` add:
+```js
+h2.text-center Login with Pug
+div.container-text 
+  p(id="center") login here!
+```
+> Then repeat step 3.
