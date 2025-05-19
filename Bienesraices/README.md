@@ -41,7 +41,7 @@ console.log("Hello World desde NodeJs");
 3. Modify the `"scrript"` section in `package.json` file:
 ```js
 "script" {
-    "start": "node ./index.js"
+  "start": "node ./index.js"
 }
 ```
 
@@ -59,8 +59,8 @@ npm i -D nodemon
 1. Open `package.json` file then add:
 ```js
 "script" {
-    "start": "node ./index.js",
-    "server": "nodemon ./index.js"    //👈🏽
+  "start": "node ./index.js",
+  "server": "nodemon ./index.js"    //👈🏽
 }
 ```
 
@@ -82,7 +82,7 @@ const app = express()
 const port = 3000; 
 
 app.listen(port, () => {
-    console.log(`Server is running in port ${port}`);
+  console.log(`Server is running in port ${port}`);
 });
 ```
 
@@ -97,7 +97,7 @@ In this terminal you will see "Server is running in port 3000".
 ```js
 // routing with a callback function
 app.get('/', (req, res) => {
-    res.send("Hello world from Server!");
+  res.send("Hello world from Server!");
 })
 ```
 > `req`: Request & `res`: Response
@@ -113,7 +113,7 @@ app.get('/', (req, res) => {
 6. Add the following code:
 ```js
 app.get('/about-us', (req, res) => {
-    res.send("About us!");
+  res.send("About us!");
 })
 ```
 > Go to browser and search for URL: http://localhost:3000/about-us
@@ -123,15 +123,15 @@ app.get('/about-us', (req, res) => {
 7. you can `send` info, `json` response or `render`:
 ```js
 app.get('/about-us', (req, res) => {
-    res.send("About us!");
+  res.send("About us!");
 })
 
 app.get('/about-us', (req, res) => {
-    res.json({ msg: "Hello from Express"});
+  res.json({ msg: "Hello from Express"});
 })
 
 app.get('/about-us', (req, res) => {
-    res.render("...");
+  res.render("...");
 })
 ```
 
@@ -146,8 +146,8 @@ const express = require('express');
 - Open `Package.json` file and then add:
 ```js
 {
-    "type": "module",
-    "script" {...}
+  "type": "module",
+  "script" {...}
 }
 ```
 > Do not forget to see the errors from terminal.
@@ -174,11 +174,11 @@ import express from "express";
 const router = express.Router();
 
 router.get('/', function(req, res) => {
-    res.json({msg: "Hello world from Express"});
+  res.json({msg: "Hello world from Express"});
 })
 
 router.get('/about-us', (req, res) => {
-    res.send('info about us!');
+  res.send('info about us!');
 })
 
 export default router;
@@ -187,11 +187,11 @@ export default router;
 2. In `index.js` delete or comment them:
 ```js
 app.get('/', (req, res) => {
-    res.send("Hello world from Server!");
+  res.send("Hello world from Server!");
 });
 
 app.get('/about-us', (req, res) => {
-    res.send("About us!");
+  res.send("About us!");
 })
 ```
 due to moved to `userRoutes.js` file
@@ -212,7 +212,7 @@ app.get('/', userRoutes);
 const port = 3000; 
 
 app.listen(port, () => {
-    console.log(`Server is running in port ${port}`);
+  console.log(`Server is running in port ${port}`);
 });
 ```
 
@@ -231,4 +231,50 @@ In `get` it looks for a specific routing which is `'/'` only.
 app.use('/', userRoutes);
 ```
 
+# Lecture 016: Testing GET & POST request
 
+We have:
+```js
+import express from "express";
+const router = express.Router();
+
+/*
+ * GET when user visit this URL 
+ */
+router.get('/', function(req, res) {
+  res.json({msg: "Hello world from Express"});
+})
+
+/*
+ * POST when user fill a form and you need to process this information. 
+ */
+router.post('/', function(req, res) {
+  res.json({msg: "a response POST type!"});
+})
+
+router.get('/about-us', (req, res) => {
+  res.send('info about us!');
+})
+
+export default router;
+```
+
+we also could use this format:
+```js
+import express from "express";
+const router = express.Router();
+
+router.route('/')
+  .get(function(req, res) {
+    res.json({msg: "Hello world from Express"});
+  })
+  .post((req, res) => {
+    res.json({msg: "a response POST type!"});
+  })
+
+router.get('/about-us', (req, res) => {
+  res.send('info about us!');
+})
+
+export default router;
+```

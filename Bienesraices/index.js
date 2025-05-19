@@ -6,7 +6,8 @@ import userRoutes from './routes/userRoutes.js';
 const app = express()
 
 // routing
-app.get('/', userRoutes);
+//app.get('/', userRoutes);
+app.use('/', userRoutes);
 
 //define a port then run project:
 const port = 3000; 
