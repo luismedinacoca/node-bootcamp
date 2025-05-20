@@ -14,9 +14,9 @@ app.set('views', './views');
 //app.get('/', userRoutes);
 app.use('/auth', userRoutes);
 
-//define a port then run project:
+//define a port then run project: 
 const port = 3000; 
 
 app.listen(port, () => {
     console.log(`Server is running in port ${port}`);
-});
+}); 

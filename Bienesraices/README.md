@@ -355,9 +355,17 @@ export default router;
 ```js
 // userRoutes.js
 router.get('/login', (req, res) => {
-    res.render('auth/login');
+    res.render('auth/login'); // display a view   => auth/login.pug
 })
 ```
+4.1 In login.pug add:
+```pug
+h2 Login with Pug
+div.container-text 
+  p login here!
+```
+
+4.2 Go to: `http://localhost:3000/auth/login`
 
 
 5. In `login.pug` add:
@@ -395,3 +403,79 @@ div
   else
     p Not authenticated
 ```
+
+# Lecture 020:  MVC
+
+M: model
+V: view
+C: controller
+
+It's a software architecture pattern that allows for the separation of concerns for each piece of your code. 
+
+It emphasizes the separation of programming logic from presentation.
+
+MVC doesn't improve code performance or provide security; however, your code will have better organization and be easy to maintain.
+
+
+# Lecture 021:
+
+## Create a `userController.js` or `user.controller.js` file:
+```
+bienesraices/
+├── node_modules/
+│   ├── .bin/
+│   ├── ... (dependencies)
+│   └── ...
+├── routes/
+│   ├── userRoutes.js
+│   └── ... 
+├── controllers/
+│   ├── userController.js  (*)
+│   └── ... 
+├── views/
+│   ├── auth
+│   │   └── login.pug 
+│   └── ...
+├── index.js
+├── package-lock.json
+├── package.json     
+└── README.md   
+```
+
+## Open the `userController.js` file then add:
+```js
+const formLogin = (reqq, res) => {
+  res.render('auth/login', {
+    authenticated: true,
+  })
+}
+
+export {
+  formLogin,
+}
+```
+
+## Open `userRoutes.js` file:
+1. Comment the code and leave the code as follow
+```js
+/*
+router.get('/login', (req, res) => {
+    res.render('auth/login');
+})
+*/
+router.get('/login', ❓❓❓);
+```
+
+2. Import formLogin then complete the `router.get('/login')`:
+```js
+import { formLogin } from '../controllers/userController.js';
+
+/*
+router.get('/login', (req, res) => {
+    res.render('auth/login');
+})
+*/
+router.get('/login', formLogin);
+```
+
+

@@ -1,20 +1,18 @@
 import express from "express";
+import { formLogin } from '../controllers/userController.js';
 const router = express.Router();
 
-/*
- * GET when user visit this URL 
- */
 router.get('/', function(req, res) {
     res.json({msg: "Hello world from Express"});
 })
 
+/*
 router.get('/login', (req, res) => {
     res.render('auth/login');
 })
+*/
+router.get('/login', formLogin);
 
-/*
- * POST when user fill a form and you need to process this information. 
- */
 router.post('/', function(req, res) {
     res.json({msg: "a response POST type!"});
 })
